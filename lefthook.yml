@@ -5,9 +5,9 @@ pre-commit:
       run: pnpm lint-staged
 
 pre-push:
-  parallel: false
+  parallel: true
   commands:
     type-check:
-      run: pnpm turbo type-check --filter=[HEAD^1]
+      run: pnpm turbo type-check
     test:
-      run: pnpm turbo test --filter=[HEAD^1]
+      run: pnpm turbo test
