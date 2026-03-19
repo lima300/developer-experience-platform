@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint-staged:
+      run: pnpm lint-staged
+
+pre-push:
+  parallel: false
+  commands:
+    type-check:
+      run: pnpm turbo type-check --filter=[HEAD^1]
+    test:
+      run: pnpm turbo test --filter=[HEAD^1]

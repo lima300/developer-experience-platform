@@ -1,0 +1,11 @@
+{
+  "name": "@dxp/tsconfig-base",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./tsconfig.json"
+  },
+  "files": [
+    "tsconfig.json"
+  ]
+}
