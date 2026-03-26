@@ -1,0 +1,59 @@
+{
+  "mfes": [
+    {
+      "name": "featureFlags",
+      "route": "/flags",
+      "scope": "featureFlags",
+      "module": "./App",
+      "url": "http://localhost:3001/remoteEntry.js",
+      "permissions": ["admin", "dev"],
+      "enabled": true,
+      "version": "0.1.0",
+      "canaryPercent": 0
+    },
+    {
+      "name": "experiments",
+      "route": "/experiments",
+      "scope": "experiments",
+      "module": "./App",
+      "url": "http://localhost:3002/remoteEntry.js",
+      "permissions": ["admin", "dev"],
+      "enabled": true,
+      "version": "0.1.0",
+      "canaryPercent": 0
+    },
+    {
+      "name": "logs",
+      "route": "/logs",
+      "scope": "logs",
+      "module": "./App",
+      "url": "http://localhost:3003/remoteEntry.js",
+      "permissions": ["admin", "dev", "viewer"],
+      "enabled": true,
+      "version": "0.1.0",
+      "canaryPercent": 0
+    },
+    {
+      "name": "apiExplorer",
+      "route": "/api-explorer",
+      "scope": "apiExplorer",
+      "module": "./App",
+      "url": "http://localhost:3004/remoteEntry.js",
+      "permissions": ["admin", "dev"],
+      "enabled": true,
+      "version": "0.1.0",
+      "canaryPercent": 0
+    },
+    {
+      "name": "docs",
+      "route": "/docs",
+      "scope": "docs",
+      "module": "./App",
+      "url": "http://localhost:3005/remoteEntry.js",
+      "permissions": ["admin", "dev", "viewer"],
+      "enabled": true,
+      "version": "0.1.0",
+      "canaryPercent": 0
+    }
+  ]
+}

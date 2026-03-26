@@ -1,0 +1,27 @@
+{
+  "name": "@dxp/federation-contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@dxp/eslint-config": "workspace:*",
+    "@dxp/tsconfig-base": "workspace:*",
+    "typescript": "^5.7.3"
+  }
+}
