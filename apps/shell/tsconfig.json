@@ -1,0 +1,9 @@
+{
+  "extends": "@dxp/tsconfig-base",
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["webpack/module"]
+  },
+  "include": ["src"]
+}

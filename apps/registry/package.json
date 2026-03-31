@@ -1,0 +1,8 @@
+{
+  "name": "@dxp/registry",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . --listen 4000 --cors"
+  }
+}

@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dxp-primary: hsl(220, 90%, 56%);
+  --dxp-primary-foreground: hsl(0, 0%, 100%);
+  --dxp-surface: hsl(220, 14%, 96%);
+  --dxp-surface-elevated: hsl(0, 0%, 100%);
+  --dxp-muted: hsl(220, 14%, 90%);
+  --dxp-muted-foreground: hsl(220, 9%, 46%);
+  --dxp-border: hsl(220, 13%, 88%);
+  --dxp-accent: hsl(262, 80%, 60%);
+  --dxp-accent-foreground: hsl(0, 0%, 100%);
+  --dxp-destructive: hsl(0, 84%, 60%);
+  --dxp-success: hsl(142, 70%, 45%);
+  --dxp-warning: hsl(38, 92%, 50%);
+}
+
+.dark {
+  --dxp-primary: hsl(220, 90%, 65%);
+  --dxp-primary-foreground: hsl(0, 0%, 100%);
+  --dxp-surface: hsl(220, 14%, 10%);
+  --dxp-surface-elevated: hsl(220, 14%, 14%);
+  --dxp-muted: hsl(220, 14%, 18%);
+  --dxp-muted-foreground: hsl(220, 9%, 60%);
+  --dxp-border: hsl(220, 13%, 22%);
+  --dxp-accent: hsl(262, 80%, 65%);
+  --dxp-accent-foreground: hsl(0, 0%, 100%);
+  --dxp-destructive: hsl(0, 84%, 65%);
+  --dxp-success: hsl(142, 70%, 50%);
+  --dxp-warning: hsl(38, 92%, 55%);
+}
+
+/* Smooth theme transition */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+/* MFE mount container — fill available space */
+[data-mfe] {
+  height: 100%;
+  width: 100%;
+}
