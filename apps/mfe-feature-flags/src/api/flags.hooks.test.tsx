@@ -39,6 +39,7 @@ describe('useFlags()', () => {
 describe('useFlag()', () => {
   it('returns a single flag by id', async () => {
     const flagId = (flagStore.list()[0] as Flag).id;
+    const { result } = renderHook(() => useFlag(flagId), { wrapper });
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data?.id).toBe(flagId);
   });
