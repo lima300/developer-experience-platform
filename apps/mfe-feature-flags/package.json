@@ -1,0 +1,41 @@
+{
+  "name": "@dxp/mfe-feature-flags",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@dxp/auth-context": "workspace:*",
+    "@dxp/federation-contracts": "workspace:*",
+    "@dxp/ui": "workspace:*",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-router-dom": "^6.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "zod": "^3.0.0"
+  },
+  "devDependencies": {
+    "@dxp/eslint-config": "workspace:*",
+    "@dxp/tsconfig-base": "workspace:*",
+    "@module-federation/rsbuild-plugin": "^2.3.0",
+    "@rsbuild/core": "^1.7.0",
+    "@rsbuild/plugin-react": "^1.4.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^25.0.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vitest": "^2.0.0"
+  }
+}

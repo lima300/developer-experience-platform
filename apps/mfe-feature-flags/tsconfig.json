@@ -1,0 +1,7 @@
+{
+  "extends": "@dxp/tsconfig-base",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src"]
+}

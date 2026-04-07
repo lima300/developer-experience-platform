@@ -10,7 +10,8 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yaml,yml,css}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yaml,yml,css}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yaml,yml,css}\"",
+    "create-mfe": "pnpm --filter @dxp/create-mfe exec tsx src/index.ts"
   },
   "devDependencies": {
     "@dxp/eslint-config": "workspace:*",
