@@ -7,6 +7,8 @@ export default defineConfig({
     pluginReact(),
     pluginModuleFederation({
       name: 'featureFlags',
+      // remoteEntry.js matches the filename expected by the shell's registry URLs
+      filename: 'remoteEntry.js',
       // Only ./App may be exposed — exposing internal modules creates hidden coupling
       exposes: { './App': './src/mount.tsx' },
       shared: {
