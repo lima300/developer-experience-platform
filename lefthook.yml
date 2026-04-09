@@ -2,12 +2,21 @@ pre-commit:
   parallel: true
   commands:
     lint-staged:
-      run: pnpm lint-staged
+      run: >
+        export NVM_DIR="$HOME/.nvm" &&
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" ;
+        pnpm lint-staged
 
 pre-push:
   parallel: true
   commands:
     type-check:
-      run: pnpm turbo type-check
+      run: >
+        export NVM_DIR="$HOME/.nvm" &&
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" ;
+        pnpm turbo type-check
     test:
-      run: pnpm turbo test
+      run: >
+        export NVM_DIR="$HOME/.nvm" &&
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" ;
+        pnpm turbo test

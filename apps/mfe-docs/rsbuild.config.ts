@@ -7,6 +7,7 @@ export default defineConfig({
     pluginReact(),
     pluginModuleFederation({
       name: 'docs',
+      filename: 'remoteEntry.js',
       exposes: {
         './App': './src/mount.tsx',
       },
@@ -23,6 +24,9 @@ export default defineConfig({
   ],
   server: {
     port: 3005,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   },
   html: {
     template: './public/index.html',
