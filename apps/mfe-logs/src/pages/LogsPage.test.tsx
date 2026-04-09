@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -72,6 +72,19 @@ describe('LogsPage', () => {
     const errorBtn = screen.getByRole('button', { name: 'ERROR' });
     await user.click(errorBtn);
     expect(errorBtn.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('setting from and to date inputs updates state', async () => {
+    renderPage();
+    await waitFor(() => screen.getByLabelText('From'));
+    fireEvent.change(screen.getByLabelText('From'), {
+      target: { value: '2026-01-01T00:00' },
+    });
+    fireEvent.change(screen.getByLabelText('To'), {
+      target: { value: '2026-12-31T23:59' },
+    });
+    expect((screen.getByLabelText('From') as HTMLInputElement).value).toBe('2026-01-01T00:00');
+    expect((screen.getByLabelText('To') as HTMLInputElement).value).toBe('2026-12-31T23:59');
   });
 
   it('clicking the clear button resets filters', async () => {

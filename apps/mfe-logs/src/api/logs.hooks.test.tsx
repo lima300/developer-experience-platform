@@ -45,4 +45,15 @@ describe('useLogs()', () => {
       ),
     ).toBe(true);
   });
+
+  it('fetches second page using cursor from first page', async () => {
+    const { result } = renderHook(() => useLogs(), { wrapper });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    const firstPage = result.current.data?.pages[0] as LogPage | undefined;
+    expect(firstPage?.nextCursor).not.toBeNull();
+    await result.current.fetchNextPage();
+    await waitFor(() => expect(result.current.data?.pages.length).toBe(2));
+    const secondPage = result.current.data?.pages[1] as LogPage | undefined;
+    expect(secondPage?.items.length).toBe(50);
+  });
 });

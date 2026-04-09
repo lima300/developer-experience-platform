@@ -60,4 +60,13 @@ describe('logStore.query()', () => {
     const result = logStore.query({ from, limit: 100 });
     expect(result.items.every((e) => new Date(e.timestamp) >= from)).toBe(true);
   });
+
+  it('applies to date filter', () => {
+    const entries = logStore.query({ limit: 10_000 });
+    const sampleEntry = entries.items[100];
+    if (!sampleEntry) return;
+    const to = new Date(sampleEntry.timestamp);
+    const result = logStore.query({ to, limit: 200 });
+    expect(result.items.every((e) => new Date(e.timestamp) <= to)).toBe(true);
+  });
 });

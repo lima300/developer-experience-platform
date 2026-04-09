@@ -46,6 +46,7 @@ function pickWeighted<T>(items: T[], weights: number[]): T {
     cumulative += weights[i] ?? 0;
     if (rand < cumulative) return items[i] as T;
   }
+  /* c8 ignore next */
   return items[items.length - 1] as T;
 }
 
