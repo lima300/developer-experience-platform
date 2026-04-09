@@ -1,0 +1,70 @@
+[
+  {
+    "title": "Getting Started",
+    "slug": "getting-started",
+    "content": "# Getting Started\n\nWelcome to the Developer Experience Platform (DXP). This guide will help you get up and running quickly.\n\n## Prerequisites\n\n- Node.js 20+\n- pnpm 9+\n- Git\n\n## Installation\n\n```bash\ngit clone https://github.com/your-org/dxp.git\ncd dxp\npnpm install\n```\n\n## Running Locally\n\n```bash\npnpm dev\n```\n\nThis starts all MFEs and the shell in parallel. The shell is available at `http://localhost:3000`.\n\n## Next Steps\n\nExplore the [Architecture](architecture) guide to understand how MFEs are composed at runtime.",
+    "children": [
+      {
+        "title": "Installation",
+        "slug": "getting-started/installation",
+        "content": "# Installation\n\nDetailed installation instructions for each supported platform.\n\n## macOS\n\n```bash\nbrew install node pnpm\n```\n\n## Linux\n\n```bash\ncurl -fsSL https://get.pnpm.io/install.sh | sh -\n```\n\n## Windows\n\nUse WSL2 with Ubuntu for the best experience.\n\n## Verify Installation\n\n```bash\nnode --version  # v20+\npnpm --version  # v9+\n```"
+      },
+      {
+        "title": "Quick Start",
+        "slug": "getting-started/quick-start",
+        "content": "# Quick Start\n\nGet a working DXP instance in under 5 minutes.\n\n## 1. Clone the repository\n\n```bash\ngit clone https://github.com/your-org/dxp.git && cd dxp\n```\n\n## 2. Install dependencies\n\n```bash\npnpm install\n```\n\n## 3. Start development servers\n\n```bash\npnpm dev\n```\n\n## 4. Open your browser\n\nNavigate to `http://localhost:3000`. Log in with `dev@dxp.local` / `password`.\n\n> **Tip:** All data is mocked in development. No external services are required."
+      }
+    ]
+  },
+  {
+    "title": "Architecture",
+    "slug": "architecture",
+    "content": "# Architecture\n\nDXP uses a **Micro-Frontend (MFE) architecture** powered by Webpack 5 Module Federation.\n\n## Shell + MFE Composition\n\nThe shell is a thin orchestrator with zero hardcoded MFE imports. All composition is config-driven via a runtime JSON registry.\n\n```\nshell (Webpack host)\n  └── loads remoteEntry.js dynamically at runtime\n        ├── mfe-feature-flags  (port 3001)\n        ├── mfe-experiments    (port 3002)\n        ├── mfe-logs           (port 3003)\n        ├── mfe-api-explorer   (port 3004)\n        └── mfe-docs           (port 3005)\n```\n\n## Key Principles\n\n- **Zero shell coupling** — MFEs deploy independently\n- **Shared singletons** — single React, single Router, single QueryClient per MFE\n- **RBAC at the shell** — `ProtectedRoute` enforces `manifest.permissions`\n- **Error isolation** — each MFE wrapped in `MFEErrorBoundary`",
+    "children": [
+      {
+        "title": "Module Federation",
+        "slug": "architecture/module-federation",
+        "content": "# Module Federation\n\nDXP uses Webpack 5 Module Federation at the shell (host) and Rsbuild's Module Federation plugin at each MFE (remote).\n\n## Shell Config\n\n```typescript\n// webpack.config.ts\nnew ModuleFederationPlugin({\n  name: 'shell',\n  remotes: {}, // intentionally empty — loaded dynamically\n  shared: {\n    react: { singleton: true, eager: true, requiredVersion: '^18.0.0' },\n    'react-dom': { singleton: true, eager: true, requiredVersion: '^18.0.0' },\n  },\n})\n```\n\n## MFE Config\n\n```typescript\n// rsbuild.config.ts\nmoduleFederationPlugin({\n  name: 'featureFlags',\n  exposes: { './App': './src/mount.tsx' },\n  shared: { react: { singleton: true, requiredVersion: '^18.0.0' } },\n})\n```\n\n## Dynamic Loading\n\nThe shell injects `<script src={manifest.url}>` at navigation time, then calls `__webpack_init_sharing__` and `window[scope].get('./App')` to retrieve the MFE factory."
+      },
+      {
+        "title": "Registry System",
+        "slug": "architecture/registry",
+        "content": "# Registry System\n\nAll MFE composition is driven by `apps/registry/registry.json` — fetched by the shell at boot.\n\n## Schema\n\n```json\n{\n  \"mfes\": [\n    {\n      \"name\": \"featureFlags\",\n      \"route\": \"/flags\",\n      \"scope\": \"featureFlags\",\n      \"module\": \"./App\",\n      \"url\": \"https://cdn.app.com/featureFlags/v1/remoteEntry.js\",\n      \"permissions\": [\"admin\", \"dev\"],\n      \"enabled\": true,\n      \"version\": \"1.2.0\",\n      \"canaryPercent\": 0\n    }\n  ]\n}\n```\n\n## Deployment Flow\n\n1. MFE team builds and uploads assets to CDN\n2. CI writes new CDN URL into `registry.json`\n3. Shell reads updated registry on next page load\n4. **No shell redeploy required**"
+      },
+      {
+        "title": "MFE Mount Contract",
+        "slug": "architecture/mount-contract",
+        "content": "# MFE Mount Contract\n\nDefined in `@dxp/federation-contracts`. This is the single inter-team interface.\n\n## TypeScript\n\n```typescript\ntype MFEMountFn = (container: HTMLElement, props: MFEProps) => MFEInstance;\n\ninterface MFEInstance {\n  unmount: () => void;\n}\n\ninterface MFEProps {\n  auth: AuthContext;\n  router: RouterContext;\n  theme: ThemeContext;\n}\n```\n\n## Rules\n\n- Default export only — Zod-validated by `loadRemote.ts`\n- `unmount()` must clean up all event listeners, timers, and React roots\n- `<MemoryRouter>` inside every MFE — shell owns the URL bar\n- No global state leaks outside the MFE\n- All UI via `@dxp/ui` — no custom components outside the design system"
+      }
+    ]
+  },
+  {
+    "title": "MFE Development",
+    "slug": "mfe-development",
+    "content": "# MFE Development\n\nGuide for teams building new Micro-Frontends on the DXP platform.\n\n## Scaffold a New MFE\n\n```bash\npnpm --filter @dxp/create-mfe run scaffold my-mfe\n```\n\nThis generates the complete MFE skeleton with all required config files.\n\n## Required Patterns\n\n### Entry Point\n\n```typescript\n// src/index.ts — single line only\nimport('./bootstrap');\n```\n\n### Bootstrap\n\n```typescript\n// src/bootstrap.tsx\nimport('./App');\n```\n\n### Mount (required default export)\n\n```typescript\n// src/mount.tsx\nconst mount: MFEMountFn = (container, props) => {\n  container.classList.toggle('dark', props.theme.mode === 'dark');\n  const root = createRoot(container);\n  root.render(<App {...props} />);\n  return { unmount: () => { root.unmount(); container.classList.remove('dark'); } };\n};\nexport default mount;\n```",
+    "children": [
+      {
+        "title": "Testing Guide",
+        "slug": "mfe-development/testing",
+        "content": "# Testing Guide\n\nAll MFEs must maintain 80% coverage on business logic.\n\n## Contract Test (required)\n\nEvery MFE must ship a test validating the mount export:\n\n```typescript\nimport { describe, expect, it, vi } from 'vitest';\nimport { MFEMountFnSchema } from '@dxp/federation-contracts';\nimport mount from './mount.js';\n\ndescribe('mount contract', () => {\n  it('satisfies MFEMountFnSchema', () => {\n    const result = MFEMountFnSchema.safeParse(mount);\n    expect(result.success).toBe(true);\n  });\n});\n```\n\n## Unit Tests\n\n- Use `@testing-library/user-event` — not `fireEvent`\n- Mock network with `vi.mock`\n- Use `test-utils/mockProps.ts` for `MFEProps`\n- Colocate tests: `Button.tsx` → `Button.test.tsx`\n\n## Coverage Exclusions\n\n- `src/index.ts`, `src/bootstrap.tsx`, `src/mount.tsx`\n- `src/test-utils/**`\n- `src/components/**` (covered by Storybook)"
+      },
+      {
+        "title": "Design System",
+        "slug": "mfe-development/design-system",
+        "content": "# Design System\n\nAll UI components must come from `@dxp/ui`. Never build custom components outside the design system.\n\n## Available Components\n\n| Component | Description |\n|-----------|-------------|\n| `Button` | Primary action button with variants |\n| `Badge` | Status indicator |\n| `Input` | Form text input with error state |\n| `Dialog` | Modal compound component |\n| `Skeleton` | Loading placeholder |\n| `ErrorFallback` | Standardised error display |\n\n## Button Variants\n\n```tsx\n<Button variant=\"primary\">Save</Button>\n<Button variant=\"secondary\">Cancel</Button>\n<Button variant=\"destructive\">Delete</Button>\n<Button variant=\"ghost\">View</Button>\n```\n\n## Badge Variants\n\n```tsx\n<Badge variant=\"success\">Active</Badge>\n<Badge variant=\"warning\">Paused</Badge>\n<Badge variant=\"destructive\">Error</Badge>\n<Badge variant=\"default\">Draft</Badge>\n```\n\n## Tailwind\n\nExtend `@dxp/ui`'s Tailwind preset — never define a standalone config:\n\n```typescript\nimport { dxpPreset } from '@dxp/ui/tailwind';\nexport default { presets: [dxpPreset], content: ['./src/**/*.{ts,tsx}'] };\n```"
+      }
+    ]
+  },
+  {
+    "title": "API Reference",
+    "slug": "api-reference",
+    "content": "# API Reference\n\nInternal API documentation for DXP platform services.\n\n## Authentication\n\nAll API requests require a Bearer token:\n\n```http\nAuthorization: Bearer <token>\n```\n\nTokens are passed to MFEs via `MFEProps.auth.token` and must **never** be embedded in MFE bundles.\n\n## Registry API\n\n```\nGET /registry.json\n```\n\nReturns the current MFE registry. Cached with `stale-while-revalidate`.\n\n## Feature Flags API\n\n```\nGET    /api/flags          List all flags\nPOST   /api/flags          Create a flag\nPATCH  /api/flags/:id      Update a flag\nDELETE /api/flags/:id      Delete a flag\n```\n\n## Proxy API (API Explorer)\n\n```\nPOST /api/proxy\n```\n\nServer-side proxy for API Explorer requests. Auth tokens are never exposed in the browser network tab.",
+    "children": [
+      {
+        "title": "Federation Contracts",
+        "slug": "api-reference/federation-contracts",
+        "content": "# Federation Contracts\n\n`@dxp/federation-contracts` exports TypeScript types and Zod schemas for the MFE mount interface.\n\n## Package\n\n```\npackages/federation-contracts/\n  src/\n    types.ts    # TypeScript interfaces\n    schema.ts   # Zod schemas\n    index.ts    # Barrel export\n```\n\n## Exports\n\n```typescript\nimport type { MFEMountFn, MFEInstance, MFEProps } from '@dxp/federation-contracts';\nimport { MFEMountFnSchema } from '@dxp/federation-contracts';\n```\n\n## Zero React Dependency\n\nThis package has **no React dependency** — pure TypeScript + Zod. Any framework can implement the contract."
+      }
+    ]
+  }
+]

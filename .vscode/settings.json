@@ -15,5 +15,12 @@
   "tailwindCSS.experimental.classRegex": [
     ["cn\\(([^)]*)\\)", "'([^']*)'"],
     ["cva\\(([^)]*)\\)", "'([^']*)'"]
-  ]
+  ],
+  "chat.tools.terminal.autoApprove": {
+    "/^pnpm --filter @dxp/mfe-api-explorer test 2>&1 \\| tail -35$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "pnpm": true
+  }
 }

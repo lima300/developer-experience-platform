@@ -49,4 +49,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 !.vscode/settings.json
 
-.github/prompts/plan-developerExperiencePlatform.prompt.md
+.github/prompts/

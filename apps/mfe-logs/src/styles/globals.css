@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dxp-primary: 239 84% 67%;
+  --dxp-primary-foreground: 0 0% 100%;
+  --dxp-surface: 0 0% 100%;
+  --dxp-surface-elevated: 220 14% 96%;
+  --dxp-muted: 220 14% 96%;
+  --dxp-muted-foreground: 220 9% 46%;
+  --dxp-border: 220 13% 91%;
+  --dxp-accent: 220 14% 96%;
+  --dxp-accent-foreground: 220 9% 9%;
+  --dxp-destructive: 0 84% 60%;
+  --dxp-success: 142 71% 45%;
+  --dxp-warning: 38 92% 50%;
+}
+
+.dark {
+  --dxp-surface: 222 47% 11%;
+  --dxp-surface-elevated: 217 33% 17%;
+  --dxp-muted: 217 33% 17%;
+  --dxp-muted-foreground: 215 20% 65%;
+  --dxp-border: 217 33% 25%;
+  --dxp-accent: 217 33% 17%;
+  --dxp-accent-foreground: 210 40% 98%;
+}
