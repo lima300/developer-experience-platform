@@ -45,7 +45,10 @@ describe('logStore.query()', () => {
   it('returns entries after cursor', () => {
     const first = logStore.query({ limit: 2 });
     expect(first.nextCursor).not.toBeNull();
-    const second = logStore.query({ cursor: first.nextCursor ?? undefined, limit: 2 });
+    const second = logStore.query({
+      ...(first.nextCursor ? { cursor: first.nextCursor } : {}),
+      limit: 2,
+    });
     expect(second.items[0]?.id).not.toBe(first.items[0]?.id);
   });
 
