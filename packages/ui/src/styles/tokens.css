@@ -1,0 +1,52 @@
+/**
+ * DXP design tokens — THE single source of truth for color variables.
+ *
+ * Imported by the shell and every MFE (standalone + shell-mounted) via:
+ *   @import '@dxp/ui/tokens.css';
+ *
+ * Values are raw HSL channels (space-separated, no `hsl()` wrapper) so the
+ * Tailwind preset can apply opacity modifiers, e.g. `bg-dxp-primary/10` →
+ * `hsl(var(--dxp-primary) / 0.1)`. Never redefine these per-app — edit here only.
+ *
+ * Palette: Azure DevOps–inspired (azure blue primary on neutral grays).
+ */
+
+:root {
+  --dxp-primary: 206 100% 42%; /* #0078d4 azure blue */
+  --dxp-primary-foreground: 0 0% 100%;
+  --dxp-foreground: 210 11% 15%; /* primary text */
+  --dxp-background: 210 17% 95%; /* page background */
+  --dxp-surface: 210 17% 95%;
+  --dxp-surface-elevated: 0 0% 100%; /* panels / cards */
+  --dxp-muted: 210 16% 93%;
+  --dxp-muted-foreground: 210 9% 38%;
+  --dxp-border: 210 14% 87%;
+  --dxp-accent: 206 100% 42%;
+  --dxp-accent-foreground: 0 0% 100%;
+  --dxp-destructive: 0 72% 48%;
+  --dxp-success: 145 63% 37%;
+  --dxp-warning: 35 92% 48%;
+  --dxp-rail: 0 0% 100%; /* nav rail background */
+  --dxp-topbar: 206 100% 32%; /* dark azure top bar */
+  --dxp-topbar-foreground: 0 0% 100%;
+}
+
+.dark {
+  --dxp-primary: 206 100% 56%;
+  --dxp-primary-foreground: 0 0% 100%;
+  --dxp-foreground: 0 0% 96%;
+  --dxp-background: 0 0% 12%; /* #1f1f1f */
+  --dxp-surface: 0 0% 12%;
+  --dxp-surface-elevated: 0 0% 16%; /* #292929 */
+  --dxp-muted: 0 0% 22%;
+  --dxp-muted-foreground: 0 0% 67%;
+  --dxp-border: 0 0% 26%;
+  --dxp-accent: 206 100% 56%;
+  --dxp-accent-foreground: 0 0% 100%;
+  --dxp-destructive: 0 72% 58%;
+  --dxp-success: 145 55% 50%;
+  --dxp-warning: 35 92% 56%;
+  --dxp-rail: 0 0% 16%;
+  --dxp-topbar: 0 0% 9%;
+  --dxp-topbar-foreground: 0 0% 100%;
+}

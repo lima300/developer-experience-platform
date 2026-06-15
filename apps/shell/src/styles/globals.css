@@ -1,36 +1,8 @@
+@import '@dxp/ui/tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --dxp-primary: hsl(220, 90%, 56%);
-  --dxp-primary-foreground: hsl(0, 0%, 100%);
-  --dxp-surface: hsl(220, 14%, 96%);
-  --dxp-surface-elevated: hsl(0, 0%, 100%);
-  --dxp-muted: hsl(220, 14%, 90%);
-  --dxp-muted-foreground: hsl(220, 9%, 46%);
-  --dxp-border: hsl(220, 13%, 88%);
-  --dxp-accent: hsl(262, 80%, 60%);
-  --dxp-accent-foreground: hsl(0, 0%, 100%);
-  --dxp-destructive: hsl(0, 84%, 60%);
-  --dxp-success: hsl(142, 70%, 45%);
-  --dxp-warning: hsl(38, 92%, 50%);
-}
-
-.dark {
-  --dxp-primary: hsl(220, 90%, 65%);
-  --dxp-primary-foreground: hsl(0, 0%, 100%);
-  --dxp-surface: hsl(220, 14%, 10%);
-  --dxp-surface-elevated: hsl(220, 14%, 14%);
-  --dxp-muted: hsl(220, 14%, 18%);
-  --dxp-muted-foreground: hsl(220, 9%, 60%);
-  --dxp-border: hsl(220, 13%, 22%);
-  --dxp-accent: hsl(262, 80%, 65%);
-  --dxp-accent-foreground: hsl(0, 0%, 100%);
-  --dxp-destructive: hsl(0, 84%, 65%);
-  --dxp-success: hsl(142, 70%, 50%);
-  --dxp-warning: hsl(38, 92%, 55%);
-}
 
 /* Smooth theme transition */
 *,
@@ -38,7 +10,27 @@
 *::after {
   transition:
     background-color 150ms ease,
-    border-color 150ms ease;
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+/* Thin, unobtrusive scrollbars — closer to the Azure DevOps feel */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dxp-border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--dxp-border);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--dxp-muted-foreground);
 }
 
 /* MFE mount container — fill available space */

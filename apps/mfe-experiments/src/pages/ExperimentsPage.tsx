@@ -46,7 +46,7 @@ export function ExperimentsPage({ auth }: ExperimentsPageProps) {
 
   return (
     <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between border-b border-dxp-border pb-4">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Experiments</h1>
         {canCreate && <CreateExperimentDialog />}
       </div>

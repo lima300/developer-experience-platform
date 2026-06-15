@@ -5,13 +5,15 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.js",
-    "./tailwind": "./tailwind.preset.ts"
+    "./tailwind": "./tailwind.preset.ts",
+    "./tokens.css": "./src/styles/tokens.css"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "tailwind.preset.ts"
+    "tailwind.preset.ts",
+    "src/styles/tokens.css"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --out-dir dist --clean",

@@ -194,7 +194,6 @@ import { createRoot } from 'react-dom/client';
 
 import { App } from './App.js';
 import { MOCK_PROPS } from './test-utils/mockProps.js';
-import './styles/globals.css';
 
 // Standalone dev entry — only runs when using \`rsbuild dev\` directly.
 // In federated mode (mounted by shell), mount.ts is used instead.
@@ -238,6 +237,8 @@ function srcAppTsx(_pascalName: string): string {
   return `import React, { useState } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import './styles/globals.css';
 
 import type { MFEProps } from '@dxp/federation-contracts';
 
@@ -286,37 +287,11 @@ export const MOCK_PROPS: MFEProps = {
 }
 
 function srcStylesGlobalsCss(): string {
-  return `@tailwind base;
+  return `@import '@dxp/ui/tokens.css';
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* DXP design tokens — mirrors apps/shell/src/styles/globals.css.
-   Required for standalone dev mode (bootstrap.tsx).
-   In shell-mounted mode, the shell provides these via its own globals.css. */
-:root {
-  --dxp-primary: 239 84% 67%;
-  --dxp-primary-foreground: 0 0% 100%;
-  --dxp-surface: 0 0% 100%;
-  --dxp-surface-elevated: 220 14% 96%;
-  --dxp-muted: 220 14% 96%;
-  --dxp-muted-foreground: 220 9% 46%;
-  --dxp-border: 220 13% 91%;
-  --dxp-accent: 220 14% 96%;
-  --dxp-accent-foreground: 220 9% 9%;
-  --dxp-destructive: 0 84% 60%;
-  --dxp-success: 142 71% 45%;
-  --dxp-warning: 38 92% 50%;
-}
-
-.dark {
-  --dxp-surface: 222 47% 11%;
-  --dxp-surface-elevated: 217 33% 17%;
-  --dxp-muted: 217 33% 17%;
-  --dxp-muted-foreground: 215 20% 65%;
-  --dxp-border: 217 33% 25%;
-  --dxp-accent: 217 33% 17%;
-  --dxp-accent-foreground: 210 40% 98%;
-}
 `;
 }
 

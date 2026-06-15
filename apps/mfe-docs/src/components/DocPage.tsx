@@ -36,16 +36,16 @@ export function DocPage({ doc, isLoading }: DocPageProps) {
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-2xl font-bold mb-4 text-foreground">{children}</h1>
+            <h1 className="text-2xl font-bold mb-4 text-dxp-foreground">{children}</h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-xl font-semibold mt-8 mb-3 text-foreground">{children}</h2>
+            <h2 className="text-xl font-semibold mt-8 mb-3 text-dxp-foreground">{children}</h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-lg font-semibold mt-6 mb-2 text-foreground">{children}</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-2 text-dxp-foreground">{children}</h3>
           ),
           p: ({ children }) => (
-            <p className="mb-4 leading-relaxed text-foreground/80">{children}</p>
+            <p className="mb-4 leading-relaxed text-dxp-foreground/80">{children}</p>
           ),
           code: ({
             className,
@@ -75,7 +75,7 @@ export function DocPage({ doc, isLoading }: DocPageProps) {
           a: ({ href, children }) => (
             <a
               href={href}
-              className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
+              className="text-dxp-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
               target={href?.startsWith('http') ? '_blank' : undefined}
               rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
             >
@@ -96,7 +96,7 @@ export function DocPage({ doc, isLoading }: DocPageProps) {
           ),
           td: ({ children }) => <td className="border border-dxp-border px-3 py-2">{children}</td>,
           blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-primary pl-4 italic text-dxp-muted-foreground my-4">
+            <blockquote className="border-l-4 border-dxp-primary pl-4 italic text-dxp-muted-foreground my-4">
               {children}
             </blockquote>
           ),
@@ -106,7 +106,7 @@ export function DocPage({ doc, isLoading }: DocPageProps) {
           ol: ({ children }) => (
             <ol className="list-decimal list-inside space-y-1 mb-4 ml-2">{children}</ol>
           ),
-          li: ({ children }) => <li className="text-foreground/80">{children}</li>,
+          li: ({ children }) => <li className="text-dxp-foreground/80">{children}</li>,
         }}
       >
         {doc.content}

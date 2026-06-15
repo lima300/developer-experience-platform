@@ -49,7 +49,7 @@ export function FlagList({ auth }: FlagListProps) {
 
   return (
     <div className="p-6">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between border-b border-dxp-border pb-4">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Feature Flags</h1>
         <CreateFlagDialog />
       </div>

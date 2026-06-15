@@ -30,7 +30,7 @@ export function DocsPage() {
   );
 
   return (
-    <div className="flex h-full min-h-0 bg-background text-foreground">
+    <div className="flex h-full min-h-0 bg-dxp-surface text-dxp-foreground">
       {/* Sidebar */}
       <aside className="flex w-72 shrink-0 flex-col gap-4 overflow-y-auto border-r border-dxp-border bg-dxp-surface-elevated p-4">
         <div className="flex items-center gap-2 pb-2">

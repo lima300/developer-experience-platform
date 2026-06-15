@@ -2,19 +2,37 @@ import { useAuth } from '@dxp/auth-context';
 
 import type { MFEManifest } from '@dxp/federation-contracts';
 
+interface StatePageProps {
+  icon: string;
+  title: string;
+  children: React.ReactNode;
+}
+
+/** Shared centered card used by all chrome-level status pages. */
+function StatePage({ icon, title, children }: StatePageProps) {
+  return (
+    <div className="flex h-full w-full items-center justify-center p-8">
+      <div className="flex max-w-md flex-col items-center gap-3 rounded-lg border border-dxp-border bg-dxp-surface-elevated px-10 py-12 text-center shadow-sm">
+        <div className="text-4xl" aria-hidden>
+          {icon}
+        </div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h2>
+        <div className="text-sm text-dxp-muted-foreground">{children}</div>
+      </div>
+    </div>
+  );
+}
+
 interface DisabledMFEPageProps {
   name: string;
 }
 
 export function DisabledMFEPage({ name }: DisabledMFEPageProps) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
-      <div className="text-4xl">🚫</div>
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Application Disabled</h2>
-      <p className="max-w-sm text-sm text-dxp-muted-foreground">
-        <strong className="capitalize">{name}</strong> has been disabled by the platform team.
-      </p>
-    </div>
+    <StatePage icon="🚫" title="Application Disabled">
+      <strong className="capitalize text-gray-700 dark:text-gray-300">{name}</strong> has been
+      disabled by the platform team.
+    </StatePage>
   );
 }
 
@@ -24,28 +42,20 @@ interface UnauthorizedPageProps {
 
 export function UnauthorizedPage({ requiredRoles }: UnauthorizedPageProps) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
-      <div className="text-4xl">🔒</div>
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Access Denied</h2>
-      <p className="max-w-sm text-sm text-dxp-muted-foreground">
-        This application requires one of the following roles:{' '}
-        <span className="font-medium text-gray-700 dark:text-gray-300">
-          {requiredRoles.join(', ')}
-        </span>
-      </p>
-    </div>
+    <StatePage icon="🔒" title="Access Denied">
+      This application requires one of the following roles:{' '}
+      <span className="font-medium text-gray-700 dark:text-gray-300">
+        {requiredRoles.join(', ')}
+      </span>
+    </StatePage>
   );
 }
 
 export function NotFound() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8 text-center">
-      <div className="text-4xl">404</div>
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Page Not Found</h2>
-      <p className="text-sm text-dxp-muted-foreground">
-        The route you navigated to does not match any registered application.
-      </p>
-    </div>
+    <StatePage icon="🧭" title="Page Not Found">
+      The route you navigated to does not match any registered application.
+    </StatePage>
   );
 }
 

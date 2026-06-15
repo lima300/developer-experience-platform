@@ -28,7 +28,7 @@ function NavItem({ entry, activeSlug, onNavigate, depth }: NavItemProps) {
         className={cn(
           'w-full justify-start text-left font-normal',
           depth > 0 && 'ml-3 w-[calc(100%-0.75rem)]',
-          !isActive && 'text-dxp-muted-foreground hover:text-foreground',
+          !isActive && 'text-dxp-muted-foreground hover:text-dxp-foreground',
         )}
         onClick={() => {
           onNavigate(entry.slug);
